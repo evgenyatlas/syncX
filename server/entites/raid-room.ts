@@ -6,4 +6,7 @@ export class RaidRoom extends Room<Game> {
     onJoin(client: Client) {
         this.state.createPlayer(client)
     }
+    onLeave(client: Client) {
+        this.state.sleepPlayer
+    }
 }
