@@ -1,5 +1,7 @@
-interface SxOptions<Filter extends Function> {
+interface SxOptions<Filter extends Function, ClientMap extends Function> {
     filter?: Filter
+    //Или все-таки map 🤔
+    transform?: ClientMap
 }
 
 //Шарпистам не смотреть 

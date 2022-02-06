@@ -2,9 +2,7 @@ import { Player } from "./player";
 import geojsonRbush, { RBush } from 'geojson-rbush'
 import { Client, sx } from "../lib/syncx";
 import { Geometry } from "geojson";
-import { Building } from "./building";
-
-
+import { Building, IBuilding } from "./building";
 
 export class Game {
     @sx({ filter: filterPlayer })
@@ -21,10 +19,15 @@ export class Game {
     //Тут декоратор @sx, чтобы метод с таким же названием вызвался на всех клиентах
     //К примеру, чтобы отобразить анимацию атаки
     //Иначе мы просто отнимем энергию, а клиент не поймет, что к чему
-    @sx
-    onAttack() { }
-    @sx
-    onCaptureBuiding() { }
+    @sx({
+        //Какие данные отправяться клиенту
+        transform: transformClientAttack
+    })
+    onAttack(client: Client, energy: number) { }
+    @sx({
+        transform: transformClientCapture
+    })
+    onCaptureBuiding(client: Client, building: IBuilding) { }
 }
 
 
@@ -32,3 +35,5 @@ export class Game {
 
 function filterPlayer() { }
 function filterBuilding() { }
+function transformClientAttack() { }
+function transformClientCapture() { }
